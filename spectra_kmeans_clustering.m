@@ -46,7 +46,7 @@ replicates = 5;      % number of replicates
 
 % normalized spectra [0 to 1]: normalization done to remove dependence on
 % maximum value of signal and highlight change in shape
-PNSD_norm_hr = PNSD ./ nanmax(PNSD);
+PNSD_norm = PNSD ./ nanmax(PNSD);
 
 
 
@@ -55,7 +55,7 @@ for i = 1:length(clusters)
     disp(strcat('Performing k-means clustering of PNSD: k = ', num2str(i)))
     
     [PNSD_clust_idx(:,i), ...
-     PNSD_clust_centroid{i}] = kmeans(PNSD_norm_hr', ...         % input matrix
+     PNSD_clust_centroid{i}] = kmeans(PNSD_norm', ...         % input matrix
                                       clusters(i), ...           % number of clusters
                                       'Distance', 'cosine', ...  % distance metric
                                       'MaxIter', max_iter, ...   % max iterations
@@ -70,8 +70,10 @@ end
 %% Plot Cluster Centroids for Given K
 close all; clc
 
-k_clusters = 7; % which k do you want to see?
+k_clusters = 4; % which k do you want to see?
 
+% number of available data
+N_data_avail = length(find(~isnan(PNSD_clust_idx(:,k_clusters))));
 
 
 cluster_freq   = [];
