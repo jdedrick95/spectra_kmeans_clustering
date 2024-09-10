@@ -34,9 +34,6 @@ load(datafile)
 diam = COMBLE_diameter_merged;
 PNSD = COMBLE_PNSD_merged_hr;
 
-% length of available data
-N_data_avail = length(find(all(~isnan(PNSD))));
-
 
 %% K means clustering alogrithm
 
